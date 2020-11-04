@@ -115,7 +115,7 @@ public class Table {
                             final Move move = null;
                             final MoveTransition transition = chessBoard.currentPlayer().makeMove(move);
                             //?
-                            if (transition.getMoveStatus().isDone()) {
+                            if (transition.getMoveStatus() == MoveStatus.DONE) {
                                 //chessBoard = chessBoard.currentPlayer().makeMove(move)
                             }
                         }
