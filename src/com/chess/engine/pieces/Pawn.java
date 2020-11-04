@@ -14,7 +14,7 @@ public class Pawn extends Piece {
     private final static int[] CANDIDATE_MOVE_COORDINATE = {7, 8, 9, 16};
 
     public Pawn(final int position, final Color color) {
-        super(pieceType.PAWN, position, color);
+        super(PieceType.PAWN, position, color);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class Pawn extends Piece {
             if (currentCandidateOffset == 8 && !board.getTile(candidateDestinationCoordinate).isOccupiedTile()) {
                 legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
             } else if (currentCandidateOffset == 16 && this.isFirstMove() &&
-                    (BoardUtils.SECOND_ROW[this.position] && this.getPieceColor().isBlack()) ||
-                    (BoardUtils.SEVENTH_ROW[this.position] && this.getPieceColor().isWhite())) {
+                    (BoardUtils.SEVENTH_RANK[this.position] && this.getPieceColor().isBlack()) ||
+                    (BoardUtils.SECOND_RANK[this.position] && this.getPieceColor().isWhite())) {
                 final int behindCandidateDestinationCoordinate = this.position + (this.color.getDirection() + 8);
                 if (!board.getTile(behindCandidateDestinationCoordinate).isOccupiedTile() &&
                         !board.getTile(candidateDestinationCoordinate).isOccupiedTile()) {

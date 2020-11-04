@@ -16,7 +16,7 @@ public class Knight extends Piece {
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-17, -15, -10, -6, 6, 10, 15, 17};
 
     public Knight(final int position, final Color color) {
-        super(pieceType.KNIGHT, position, color);
+        super(PieceType.KNIGHT, position, color);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Bishop extends Piece {
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -7, 7, 9};
 
     public Bishop(final int position, final Color color) {
-        super(pieceType.BISHOP, position, color);
+        super(PieceType.BISHOP, position, color);
     }
 
     @Override
