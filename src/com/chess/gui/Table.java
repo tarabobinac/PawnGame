@@ -4,8 +4,8 @@ import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Tile;
 import com.chess.engine.pieces.Piece;
-import com.chess.engine.player.MoveTransition;
 import com.chess.engine.player.MoveStatus;
+import com.chess.engine.player.MoveTransition;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -18,14 +18,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-
 import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
 
 public class Table {
     private final JFrame gameFrame;
     private final BoardPanel boardPanel;
-    private final Board chessBoard;
+    private Board chessBoard;
     
     private Tile sourceTile;
     private Tile destinationTile;
@@ -90,6 +89,16 @@ public class Table {
             setPreferredSize(BOARD_PANEL_DIMENSION);
             validate();
         }
+
+        public void drawBoard(final Board board) {
+            removeAll();
+            for (final TilePanel tilePanel : boardTiles) {
+                tilePanel.drawTile(board);
+                add(tilePanel);
+            }
+            validate();
+            repaint();
+        }
     }
 
     private class TilePanel extends JPanel{
@@ -103,7 +112,12 @@ public class Table {
             addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(final MouseEvent e) {
+                    //misclicked
                     if (isRightMouseButton(e)) {
+                        sourceTile = null;
+                        destinationTile = null;
+                        humanMovedPiece = null;
+                    } else if (isLeftMouseButton(e)) {
                         if (sourceTile == null) {
                             sourceTile = chessBoard.getTile(tileId);
                             humanMovedPiece = sourceTile.getPiece();
@@ -112,15 +126,22 @@ public class Table {
                             }
                         } else {
                             destinationTile = chessBoard.getTile(tileId);
-                            final Move move = null;
+                            final Move move = Move.MoveFactory.createMove(chessBoard, sourceTile.getTileCoordinate(), destinationTile.getTileCoordinate());
                             final MoveTransition transition = chessBoard.currentPlayer().makeMove(move);
-                            //?
                             if (transition.getMoveStatus() == MoveStatus.DONE) {
-                                //chessBoard = chessBoard.currentPlayer().makeMove(move)
+                            //if (transition.getMoveStatus().isDone()) {
+                                chessBoard = transition.getTransitionBoard();
                             }
+                            sourceTile = null;
+                            destinationTile = null;
+                            humanMovedPiece = null;
                         }
-                    } else if (isLeftMouseButton(e)) {
-                        
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                boardPanel.drawBoard(chessBoard);
+                            }
+                        });
                     }
                 }
                 
@@ -145,6 +166,13 @@ public class Table {
                 }
             });
             validate();
+        }
+
+        public void drawTile(final Board board) {
+            assignTileColor();
+            assignTilePieceIcon(board);
+            validate();
+            repaint();
         }
 
         private void assignTilePieceIcon(final Board board) {
