@@ -29,6 +29,8 @@ public class Table {
     private Piece humanMovedPiece;
     private BoardDirection boardDirection;
 
+    private boolean highlightLegalMoves;
+
     private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600, 600);
     private final static Dimension BOARD_PANEL_DIMENSION = new Dimension(400, 350);
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension(10, 10);
@@ -45,6 +47,7 @@ public class Table {
         this.chessBoard = Board.createStandardBoard();
         this.boardPanel = new BoardPanel();
         this.boardDirection = boardDirection.NORMAL;
+        this.highlightLegalMoves = false;
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
         this.gameFrame.setVisible(true);
     }
@@ -87,6 +90,18 @@ public class Table {
                 boardPanel.drawBoard(chessBoard); }
         });
         preferencesMenu.add(flipBoardMenuItem);
+
+        preferencesMenu.addSeparator();
+        final JCheckBoxMenuItem legalMoveHighlighterCheckbox = new JCheckBoxMenuItem("Highlight Legal Moves", false);
+
+        legalMoveHighlighterCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean highlightLegalMoves = legalMoveHighlighterCheckbox.isSelected();
+            }
+        });
+
+        preferencesMenu.add(legalMoveHighlighterCheckbox);
         return preferencesMenu;
     }
 
@@ -106,7 +121,6 @@ public class Table {
             @Override
             List<TilePanel> traverse(final List<TilePanel> boardTiles) {
                 Collections.reverse(boardTiles);
-                System.out.println(boardTiles.toString());
                 return boardTiles;
             }
 
@@ -228,6 +242,27 @@ public class Table {
                     e.printStackTrace();
                 }
             }
+        }
+
+        private void highlightLegals(final Board board) {
+            if (highlightLegalMoves) {
+                for (final Move move : pieceLegalMoves(board)) {
+                    if (move.getDestinationCoordinate() == this.tileId) {
+                        try {
+                            add(new JLabel(new ImageIcon(ImageIO.read(new File("pieces/misc/green_dot.png")))));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+        private Collection<Move> pieceLegalMoves(final Board board) {
+            if (humanMovedPiece != null && humanMovedPiece.getPieceColor() == board.currentPlayer().getColor()) {
+                return humanMovedPiece.calculateLegalMoves(board);
+            }
+            return Collections.emptyList();
         }
 
         private void assignTileColor() {
