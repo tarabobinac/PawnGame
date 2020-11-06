@@ -28,7 +28,6 @@ public class Table {
     private Tile destinationTile;
     private Piece humanMovedPiece;
     private BoardDirection boardDirection;
-
     private boolean highlightLegalMoves;
 
     private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600, 600);
@@ -90,7 +89,6 @@ public class Table {
                 boardPanel.drawBoard(chessBoard); }
         });
         preferencesMenu.add(flipBoardMenuItem);
-
         preferencesMenu.addSeparator();
         final JCheckBoxMenuItem legalMoveHighlighterCheckbox = new JCheckBoxMenuItem("Highlight Legal Moves", false);
 
@@ -227,6 +225,7 @@ public class Table {
         public void drawTile(final Board board) {
             assignTileColor();
             assignTilePieceIcon(board);
+            highlightLegals(board);
             validate();
             repaint();
         }
