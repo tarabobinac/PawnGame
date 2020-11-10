@@ -5,13 +5,12 @@ import com.chess.engine.board.Move;
 import com.chess.engine.board.Tile;
 import com.chess.engine.pieces.Piece;
 import com.chess.engine.player.MoveTransition;
+import com.google.common.collect.Lists;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +19,14 @@ import java.util.*;
 import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
 
-public class Table {
+public class Table extends Observable {
     private final JFrame gameFrame;
+    private final GameHistoryPanel gameHistoryPanel;
+    private final TakenPiecesPanel takenPiecesPanel;
     private final BoardPanel boardPanel;
+    private final MoveLog moveLog;
+    private final GameSetup gameSetup;
+
     private Board chessBoard;
     private Tile sourceTile;
     private Tile destinationTile;
@@ -33,9 +37,9 @@ public class Table {
     private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(600, 600);
     private final static Dimension BOARD_PANEL_DIMENSION = new Dimension(400, 350);
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension(10, 10);
-    private static String defaultPieceImagesPath = "pieces/";
+    private final static String defaultPieceImagesPath = "pieces/";
     private final Color lightTileColor = Color.decode("#FFFACD");
-    private final Color darkTileColor = Color.decode("#593E1A");
+    private final Color darkTileColor = Color.decode("#80C98E");
 
     public Table() {
         this.gameFrame = new JFrame("Pawn Game");
@@ -44,30 +48,38 @@ public class Table {
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
         this.chessBoard = Board.createStandardBoard();
+        this.gameHistoryPanel = new GameHistoryPanel();
+        this.takenPiecesPanel = new TakenPiecesPanel();
         this.boardPanel = new BoardPanel();
+        this.moveLog = new MoveLog();
         this.boardDirection = boardDirection.NORMAL;
         this.highlightLegalMoves = false;
+        this.gameSetup = new GameSetup(this.gameFrame, true);
+        this.gameFrame.add(this.takenPiecesPanel, BorderLayout.WEST);
         this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
+        this.gameFrame.add(this.gameHistoryPanel, BorderLayout.EAST);
         this.gameFrame.setVisible(true);
     }
+
 
     private JMenuBar createTableMenuBar() {
         final JMenuBar tableMenuBar = new JMenuBar();
         tableMenuBar.add(createFileMenu());
         tableMenuBar.add(createPreferencesMenu());
+        tableMenuBar.add(createOptionsMenu());
         return tableMenuBar;
     }
 
     private JMenu createFileMenu() {
         final JMenu fileMenu = new JMenu("File");
-        final JMenuItem openPGN = new JMenuItem("Load PGN File");
-        openPGN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("open up that PGN file!");
-            }
-        });
-        fileMenu.add(openPGN);
+        //final JMenuItem openFEN = new JMenuItem("Load game from FEN");
+        //openFEN.addActionListener(new ActionListener() {
+        //    @Override
+        //    public void actionPerformed(ActionEvent e) {
+        //    System.out.println("read in that FEN format!");
+         //   }
+        //});
+        //fileMenu.add(openFEN);
         final JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -82,11 +94,13 @@ public class Table {
     private JMenu createPreferencesMenu() {
         final JMenu preferencesMenu = new JMenu("Preferences");
         final JMenuItem flipBoardMenuItem = new JMenuItem("Flip Board");
+
         flipBoardMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 boardDirection = boardDirection.opposite();
-                boardPanel.drawBoard(chessBoard); }
+                boardPanel.drawBoard(chessBoard);
+            }
         });
         preferencesMenu.add(flipBoardMenuItem);
         preferencesMenu.addSeparator();
@@ -95,12 +109,101 @@ public class Table {
         legalMoveHighlighterCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean highlightLegalMoves = legalMoveHighlighterCheckbox.isSelected();
+                 highlightLegalMoves = legalMoveHighlighterCheckbox.isSelected();
             }
         });
-
         preferencesMenu.add(legalMoveHighlighterCheckbox);
         return preferencesMenu;
+    }
+
+    private JMenu createOptionsMenu() {
+        final JMenu optionsMenu = new JMenu("Options");
+
+        final JMenuItem setupNewGameMenuItem = new JMenuItem("Setup New Standard Game", KeyEvent.VK_S);
+        setupNewGameMenuItem.addActionListener(e -> {
+                    this.gameSetup.promptUser();
+
+            switch (this.gameSetup.getGameType()) {
+                case "P":
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "R":
+                    this.chessBoard = Board.createStandardRookBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "N":
+                    this.chessBoard = Board.createStandardKnightBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "B":
+                    this.chessBoard = Board.createStandardBishopBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "Q":
+                    this.chessBoard = Board.createStandardQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "RN":
+                    this.chessBoard = Board.createStandardRookKnightBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "RNB":
+                    this.chessBoard = Board.createStandardRookKnightBishopBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "RNBQ":
+                    this.chessBoard = Board.createStandardRookKnightBishopQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "RB":
+                    this.chessBoard = Board.createStandardRookBishopBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "RQ":
+                    this.chessBoard = Board.createStandardRookQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "RBQ":
+                    this.chessBoard = Board.createStandardRookBishopQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "RNQ":
+                    this.chessBoard = Board.createStandardRookKnightQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "NB":
+                    this.chessBoard = Board.createStandardKnightBishopBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "NBQ":
+                    this.chessBoard = Board.createStandardKnightBishopQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "BQ":
+                    this.chessBoard = Board.createStandardBishopQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+                case "NQ":
+                    this.chessBoard = Board.createStandardKnightQueenBoard();
+                    boardPanel.drawBoard(chessBoard);
+                    break;
+            }
+                });
+
+        final JMenuItem openFEN = new JMenuItem("Load Game from FEN File", KeyEvent.VK_F);
+        openFEN.addActionListener(e -> {
+            String fenString = JOptionPane.showInputDialog("Input FEN");
+            System.out.println(fenString);
+            //if(fenString != null) {
+            //    undoAllMoves();
+            //    chessBoard = FenUtilities.createGameFromFEN(fenString);
+             //   boardPanel.drawBoard(chessBoard);
+            //}
+        });
+        optionsMenu.add(openFEN);
+
+        optionsMenu.add(setupNewGameMenuItem);
+        return optionsMenu;
     }
 
     public enum BoardDirection {
@@ -118,8 +221,7 @@ public class Table {
         FLIPPED {
             @Override
             List<TilePanel> traverse(final List<TilePanel> boardTiles) {
-                Collections.reverse(boardTiles);
-                return boardTiles;
+                return Lists.reverse(boardTiles);
             }
 
             @Override
@@ -157,6 +259,37 @@ public class Table {
         }
     }
 
+    public static class MoveLog {
+        private final List<Move> moves;
+        MoveLog() {
+             this.moves = new ArrayList<>();
+        }
+
+        public List<Move> getMoves() {
+             return this.moves;
+        }
+
+        public void addMove(final Move move) {
+             this.moves.add(move);
+        }
+
+        public int size() {
+             return this.moves.size();
+        }
+
+        public void clear() {
+             this.moves.clear();
+        }
+
+        public Move removeMove(int index) {
+             return this.moves.remove(index);
+        }
+
+        public boolean removeMove(final Move move) {
+             return this.moves.remove(move);
+        }
+    }
+
     private class TilePanel extends JPanel{
         private final int tileId;
         TilePanel(final BoardPanel boardPanel, final int tileId) {
@@ -185,6 +318,7 @@ public class Table {
                             final MoveTransition transition = chessBoard.currentPlayer().makeMove(move);
                             if (transition.getMoveStatus().isDone()) {
                                 chessBoard = transition.getTransitionBoard();
+                                moveLog.addMove(move);
                             }
                             sourceTile = null;
                             destinationTile = null;
@@ -193,30 +327,32 @@ public class Table {
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
+                                gameHistoryPanel.redo(chessBoard, moveLog);
+                                takenPiecesPanel.redo(moveLog);
                                 boardPanel.drawBoard(chessBoard);
                             }
                         });
                     }
                 }
-                
+
                 @Override
                 public void mousePressed(final MouseEvent e) {
-                    
+
                 }
-                
+
                 @Override
                 public void mouseReleased(final MouseEvent e) {
-                    
+
                 }
-                
+
                 @Override
                 public void mouseEntered(final MouseEvent e) {
-                    
+
                 }
-                
+
                 @Override
                 public void mouseExited(final MouseEvent e) {
-                    
+
                 }
             });
             validate();

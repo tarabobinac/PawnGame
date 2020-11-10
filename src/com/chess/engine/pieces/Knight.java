@@ -4,7 +4,7 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.MajorMove;
-import com.chess.engine.board.Move.AttackMove;
+import com.chess.engine.board.Move.MajorAttackMove;
 import com.chess.engine.board.Tile;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +16,11 @@ public class Knight extends Piece {
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-17, -15, -10, -6, 6, 10, 15, 17};
 
     public Knight(final int position, final Color color) {
-        super(PieceType.KNIGHT, position, color);
+        super(PieceType.KNIGHT, position, color, true);
+    }
+
+    public Knight(final int position, final Color color, final boolean isFirstMove) {
+        super(PieceType.KNIGHT, position, color, isFirstMove);
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Knight extends Piece {
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Color color = pieceAtDestination.getPieceColor();
                     if(this.color != color) {
-                        legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+                        legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
                     }
                 }
             }

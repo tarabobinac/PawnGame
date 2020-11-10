@@ -1,12 +1,13 @@
 package com.chess.engine.board;
 import com.chess.engine.Color;
-import com.chess.engine.pieces.Pawn;
-import com.chess.engine.pieces.Piece;
+import com.chess.engine.pieces.*;
 import com.chess.engine.player.BlackPlayer;
 import com.chess.engine.player.Player;
 import com.chess.engine.player.WhitePlayer;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Board {
 
@@ -17,11 +18,13 @@ public class Board {
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
+    private final Pawn enPassantPawn;
 
     private Board(final Builder builder) {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePieces(this.gameBoard, Color.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Color.BLACK);
+        this.enPassantPawn = builder.enPassantPawn;
 
         final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
@@ -42,6 +45,10 @@ public class Board {
             }
         }
         return builder.toString();
+    }
+
+    public Pawn getEnPassantPawn() {
+        return this.enPassantPawn;
     }
 
     public Player whitePlayer() {
@@ -96,6 +103,494 @@ public class Board {
         }
         List<Tile> tilesList = Arrays.asList(tiles);
         return Collections.unmodifiableList(tilesList);
+    }
+
+    public static Board createStandardRookBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardKnightBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardBishopBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardRookKnightBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardRookKnightBishopBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardRookKnightBishopQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardRookBishopBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardRookQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardRookBishopQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardRookKnightQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Rook(0, Color.BLACK));
+        builder.setPiece(new Rook(7, Color.BLACK));
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Rook(56, Color.WHITE));
+        builder.setPiece(new Rook(63, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardKnightBishopBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardKnightBishopQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardBishopQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Bishop(2, Color.BLACK));
+        builder.setPiece(new Bishop(5, Color.BLACK));
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Bishop(58, Color.WHITE));
+        builder.setPiece(new Bishop(61, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
+    public static Board createStandardKnightQueenBoard() {
+        final Builder builder = new Builder();
+
+        builder.setPiece(new Knight(1, Color.BLACK));
+        builder.setPiece(new Knight(6, Color.BLACK));
+        builder.setPiece(new Queen(3, Color.BLACK));
+        builder.setPiece(new Pawn(8, Color.BLACK));
+        builder.setPiece(new Pawn(9, Color.BLACK));
+        builder.setPiece(new Pawn(10, Color.BLACK));
+        builder.setPiece(new Pawn(11, Color.BLACK));
+        builder.setPiece(new Pawn(12, Color.BLACK));
+        builder.setPiece(new Pawn(13, Color.BLACK));
+        builder.setPiece(new Pawn(14, Color.BLACK));
+        builder.setPiece(new Pawn(15, Color.BLACK));
+
+        builder.setPiece(new Pawn(48, Color.WHITE));
+        builder.setPiece(new Pawn(49, Color.WHITE));
+        builder.setPiece(new Pawn(50, Color.WHITE));
+        builder.setPiece(new Pawn(51, Color.WHITE));
+        builder.setPiece(new Pawn(52, Color.WHITE));
+        builder.setPiece(new Pawn(53, Color.WHITE));
+        builder.setPiece(new Pawn(54, Color.WHITE));
+        builder.setPiece(new Pawn(55, Color.WHITE));
+        builder.setPiece(new Knight(57, Color.WHITE));
+        builder.setPiece(new Knight(62, Color.WHITE));
+        builder.setPiece(new Queen(59, Color.WHITE));
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
     }
 
     public static Board createStandardBoard() {
@@ -157,5 +652,10 @@ public class Board {
         public void setEnPassantPawn(Pawn enPassantPawn) {
             this.enPassantPawn = enPassantPawn;
         }
+    }
+
+    public Collection<Piece> getAllPieces() {
+        return Stream.concat(this.whitePieces.stream(),
+                this.blackPieces.stream()).collect(Collectors.toList());
     }
 }

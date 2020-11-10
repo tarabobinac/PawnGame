@@ -4,7 +4,7 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.MajorMove;
-import com.chess.engine.board.Move.AttackMove;
+import com.chess.engine.board.Move.MajorAttackMove;
 import com.chess.engine.board.Tile;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,29 +16,36 @@ public class Queen extends Piece {
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = { -9, -8, -7, -1, 1, 7, 8, 9};
 
     public Queen(final int position, final Color color) {
-        super(PieceType.QUEEN, position, color);
+        super(PieceType.QUEEN, position, color, true);
+    }
+
+    public Queen(final int position, final Color color, final boolean isFirstMove) {
+        super(PieceType.QUEEN, position, color, isFirstMove);
     }
 
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();
-        for (final int candidateCoordinateOffset : CANDIDATE_MOVE_VECTOR_COORDINATES) {
+        for (final int currentCandidateOffset : CANDIDATE_MOVE_VECTOR_COORDINATES) {
             int candidateDestinationCoordinate = this.position;
-            while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
-                if (isFirstColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset) ||
-                isEighthColumnExclusion(candidateCoordinateOffset, candidateCoordinateOffset)) {
+            while (true) {
+                if (isFirstColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate) ||
+                        isEighthColumnExclusion(currentCandidateOffset, candidateDestinationCoordinate)) {
                     break;
                 }
-                candidateDestinationCoordinate += candidateCoordinateOffset;
-                if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+                candidateDestinationCoordinate += currentCandidateOffset;
+                if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+                    break;
+                } else {
                     final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-                    if (!candidateDestinationTile.isOccupiedTile()) {
+                    final Piece pieceAtDestination = candidateDestinationTile.getPiece();
+                    if (pieceAtDestination == null) {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     } else {
-                        final Piece pieceAtDestination = candidateDestinationTile.getPiece();
-                        final Color color = pieceAtDestination.getPieceColor();
-                        if (this.color != color) {
-                            legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+                        final Color pieceAtDestinationAllegiance = pieceAtDestination.getPieceColor();
+                        if (this.color != pieceAtDestinationAllegiance) {
+                            legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate,
+                                    pieceAtDestination));
                         }
                         break;
                     }
@@ -59,10 +66,10 @@ public class Queen extends Piece {
     }
 
     private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.FIRST_COLUMN[currentPosition] && ((candidateOffset == -9) || (candidateOffset == 7) || (candidateOffset == -1));
+        return BoardUtils.FIRST_COLUMN[candidateOffset] && ((currentPosition == -9) || (currentPosition == 7) || (currentPosition == -1));
     }
 
     private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.FIRST_COLUMN[currentPosition] && ((candidateOffset == -7) || (candidateOffset == 9) || (candidateOffset == 1));
+        return BoardUtils.FIRST_COLUMN[candidateOffset] && ((currentPosition == -7) || (currentPosition == 9) || (currentPosition == 1));
     }
 }

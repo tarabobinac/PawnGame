@@ -4,7 +4,7 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.MajorMove;
-import com.chess.engine.board.Move.AttackMove;
+import com.chess.engine.board.Move.MajorAttackMove;
 import com.chess.engine.board.Tile;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +16,11 @@ public class Rook extends Piece {
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8, -1, 1, 8};
 
     public Rook(final int position, final Color color) {
-        super(PieceType.ROOK, position, color);
+        super(PieceType.ROOK, position, color, true);
+    }
+
+    public Rook(final int position, final Color color, final boolean isFirstMove) {
+        super(PieceType.ROOK, position, color, isFirstMove);
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Rook extends Piece {
                         final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                         final Color color = pieceAtDestination.getPieceColor();
                         if (this.color != color) {
-                            legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+                            legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
                         }
                         break;
                     }
