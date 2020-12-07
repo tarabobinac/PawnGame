@@ -5,11 +5,10 @@ import com.chess.engine.player.BlackPlayer;
 import com.chess.engine.player.Player;
 import com.chess.engine.player.WhitePlayer;
 
+import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class Board {
+public class Board implements Serializable {
 
     private final List<Tile> gameBoard;
     private final Collection<Piece> whitePieces;
@@ -29,7 +28,7 @@ public class Board {
         final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
 
-        this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
+        this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves);
         this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
     }
@@ -71,7 +70,7 @@ public class Board {
         return this.whitePieces;
     }
 
-    private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
+    public Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         final List<Move> legalMoves = new ArrayList<>();
         for(final Piece piece : pieces) {
             legalMoves.addAll(piece.calculateLegalMoves(this));
@@ -618,6 +617,13 @@ public class Board {
         return builder.build();
     }
 
+    public static Board createBlankBoard() {
+        final Builder builder = new Builder();
+
+        builder.setMoveMaker(Color.WHITE);
+        return builder.build();
+    }
+
     public Iterable<Move> getAllLegalMoves() {
         List<Move> allLegalMoves = new ArrayList<>();
         allLegalMoves.addAll(this.whitePlayer.getLegalMoves());
@@ -625,7 +631,7 @@ public class Board {
         return Collections.unmodifiableList(allLegalMoves);
     }
 
-    public static class Builder {
+    public static class Builder implements Serializable {
 
         Map<Integer, Piece> boardConfig;
         Color nextMoveMaker;
@@ -640,9 +646,8 @@ public class Board {
             return this;
         }
 
-        public Builder setMoveMaker(final Color nextMoveMaker) {
+        public void setMoveMaker(final Color nextMoveMaker) {
             this.nextMoveMaker = nextMoveMaker;
-            return this;
         }
 
         public Board build() {
@@ -654,8 +659,7 @@ public class Board {
         }
     }
 
-    public Collection<Piece> getAllPieces() {
-        return Stream.concat(this.whitePieces.stream(),
-                this.blackPieces.stream()).collect(Collectors.toList());
+    public List<Tile> getGameBoard() {
+        return this.gameBoard;
     }
 }

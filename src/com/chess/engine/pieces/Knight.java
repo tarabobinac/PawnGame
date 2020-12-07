@@ -19,10 +19,6 @@ public class Knight extends Piece {
         super(PieceType.KNIGHT, position, color, true);
     }
 
-    public Knight(final int position, final Color color, final boolean isFirstMove) {
-        super(PieceType.KNIGHT, position, color, isFirstMove);
-    }
-
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();

@@ -3,7 +3,9 @@ import com.chess.engine.board.Board.Builder;
 import com.chess.engine.pieces.Pawn;
 import com.chess.engine.pieces.Piece;
 
-public abstract class Move {
+import java.io.Serializable;
+
+public abstract class Move implements Serializable {
 
     protected final Board board;
     protected final Piece movedPiece;
@@ -80,13 +82,6 @@ public abstract class Move {
         }
         builder.setPiece(this.movedPiece.movePiece(this));
         builder.setMoveMaker(this.board.currentPlayer().getOpponent().getColor());
-        return builder.build();
-    }
-
-    public Board undo() {
-        final Board.Builder builder = new Builder();
-        this.board.getAllPieces().forEach(builder::setPiece);
-        builder.setMoveMaker(this.board.currentPlayer().getColor());
         return builder.build();
     }
 
@@ -188,7 +183,7 @@ public abstract class Move {
 
         @Override
         public String toString() {
-            return BoardUtils.getPositionAtCoordinate(this.movedPiece.getPiecePosition()).substring(0, 1) + "x" +
+            return BoardUtils.getPositionAtCoordinate(this.movedPiece.getPiecePosition()).charAt(0) + "x" +
                     BoardUtils.getPositionAtCoordinate(this.destinationCoordinate);
         }
     }

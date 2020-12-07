@@ -7,9 +7,8 @@ import java.util.Collection;
 
 public class WhitePlayer extends Player {
     public WhitePlayer(final Board board,
-                       final Collection<Move> whiteStandardLegalMoves,
-                       final Collection<Move> blackStandardLegalMoves) {
-        super(board, whiteStandardLegalMoves, blackStandardLegalMoves);
+                       final Collection<Move> whiteStandardLegalMoves) {
+        super(board, whiteStandardLegalMoves);
     }
 
     @Override

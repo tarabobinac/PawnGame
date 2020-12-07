@@ -1,11 +1,12 @@
 package com.chess.engine;
 
-import com.chess.engine.board.BoardUtils;
 import com.chess.engine.player.BlackPlayer;
 import com.chess.engine.player.Player;
 import com.chess.engine.player.WhitePlayer;
 
-public enum Color {
+import java.io.Serializable;
+
+public enum Color implements Serializable {
     WHITE {
         @Override
         public int getDirection() {
@@ -23,11 +24,6 @@ public enum Color {
         @Override
         public boolean isBlack() {
             return false;
-        }
-
-        @Override
-        public boolean isPawnEighthRank(int position) {
-            return BoardUtils.EIGHTH_RANK[position];
         }
 
         @Override
@@ -55,11 +51,6 @@ public enum Color {
         }
 
         @Override
-        public boolean isPawnEighthRank(int position) {
-            return BoardUtils.FIRST_RANK[position];
-        }
-
-        @Override
         public Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer) {
             return blackPlayer;
         }
@@ -69,6 +60,5 @@ public enum Color {
     public abstract int getOppositeDirection();
     public abstract boolean isWhite();
     public abstract boolean isBlack();
-    public abstract boolean isPawnEighthRank(int position);
     public abstract Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer);
 }

@@ -1,10 +1,12 @@
 package com.chess.engine.board;
 import com.chess.engine.pieces.Piece;
+
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Tile {
+public abstract class Tile implements Serializable {
 
     protected final int tileCoordinate;
 
@@ -21,7 +23,6 @@ public abstract class Tile {
         return Collections.unmodifiableMap(emptyTileMap);
     }
 
-    //do not allow new empty tiles
     public static Tile createTile(final int tileCoordinate, final Piece piece) {
         return piece != null ? new OccupiedTile(tileCoordinate, piece) : EMPTY_TILES.get(tileCoordinate);
     }

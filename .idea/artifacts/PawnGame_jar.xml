@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="PawnGame:jar">
+    <output-path>$USER_HOME$/Desktop/artifacts</output-path>
+    <root id="archive" name="PawnGame.jar">
+      <element id="module-output" name="PawnGame" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/guava-23.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" path-in-jar="/" />
+      <element id="directory" name="images">
+        <element id="file-copy" path="$PROJECT_DIR$/pieces/misc/green_dot.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/WR.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/WQ.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/WP.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/WN.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/WB.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/BR.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/BQ.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/BP.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/BN.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/BB.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/pieces/misc/green_dot.png" />
+      </element>
+    </root>
+  </artifact>
+</component>

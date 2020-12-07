@@ -1,6 +1,8 @@
 package com.chess.engine.player;
 
-public enum MoveStatus {
+import java.io.Serializable;
+
+public enum MoveStatus implements Serializable {
     DONE {
         @Override
         public boolean isDone() {

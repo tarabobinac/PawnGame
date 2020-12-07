@@ -5,7 +5,6 @@ import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.MajorMove;
 import com.chess.engine.board.Move.MajorAttackMove;
-import com.chess.engine.board.Tile;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,10 +16,6 @@ public class Queen extends Piece {
 
     public Queen(final int position, final Color color) {
         super(PieceType.QUEEN, position, color, true);
-    }
-
-    public Queen(final int position, final Color color, final boolean isFirstMove) {
-        super(PieceType.QUEEN, position, color, isFirstMove);
     }
 
     @Override
@@ -37,8 +32,7 @@ public class Queen extends Piece {
                 if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                     break;
                 } else {
-                    final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-                    final Piece pieceAtDestination = candidateDestinationTile.getPiece();
+                    final Piece pieceAtDestination = board.getTile(candidateDestinationCoordinate).getPiece();
                     if (pieceAtDestination == null) {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     } else {
@@ -70,6 +64,6 @@ public class Queen extends Piece {
     }
 
     private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.FIRST_COLUMN[candidateOffset] && ((currentPosition == -7) || (currentPosition == 9) || (currentPosition == 1));
+        return BoardUtils.EIGHTH_COLUMN[candidateOffset] && ((currentPosition == -7) || (currentPosition == 9) || (currentPosition == 1));
     }
 }

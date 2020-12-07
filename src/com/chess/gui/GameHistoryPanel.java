@@ -1,5 +1,4 @@
 package com.chess.gui;
-import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
 
 import javax.swing.*;
@@ -13,21 +12,22 @@ public class GameHistoryPanel extends JPanel {
 
     private final DataModel model;
     private final JScrollPane scrollPane;
-    private static final Dimension HISTORY_PANEL_DIMENSION = new Dimension(100, 400);
+    private static final Dimension HISTORY_PANEL_DIMENSION = new Dimension(200, 400);
 
-    GameHistoryPanel() {
+    public GameHistoryPanel() {
         this.setLayout(new BorderLayout());
         this.model = new DataModel();
         final JTable table = new JTable(model);
-        table.setRowHeight(15);
         this.scrollPane = new JScrollPane(table);
         scrollPane.setColumnHeaderView(table.getTableHeader());
         scrollPane.setPreferredSize(HISTORY_PANEL_DIMENSION);
         this.add(scrollPane, BorderLayout.CENTER);
+        table.setFont(new Font("sans-serif", Font.PLAIN, 23));
+        table.setRowHeight(25);
         this.setVisible(true);
     }
 
-    void redo(final Board board, final MoveLog moveHistory) {
+    void redo(final MoveLog moveHistory) {
         int currentRow = 0;
         this.model.clear();
         for (final Move move : moveHistory.getMoves()) {
@@ -56,7 +56,7 @@ public class GameHistoryPanel extends JPanel {
 
     private static class DataModel extends DefaultTableModel {
         private final List<Row> values;
-        private static final String[] NAMES = {"White", "Black"};
+        private static final String[] NAMES = {"WHITE", "BLACK"};
 
         DataModel() {
             this.values = new ArrayList<>();
@@ -120,7 +120,7 @@ public class GameHistoryPanel extends JPanel {
         }
     }
 
-    private static class Row {
+        private static class Row {
         private String whiteMove;
         private String blackMove;
 

@@ -1,8 +1,9 @@
 package com.chess.engine.board;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class BoardUtils {
+public class BoardUtils implements Serializable {
 
     public static final boolean[] FIRST_COLUMN = initColumn(0);
     public static final boolean[] SECOND_COLUMN = initColumn(1);
