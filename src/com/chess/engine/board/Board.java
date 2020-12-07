@@ -247,7 +247,6 @@ public class Board implements Serializable {
         builder.setPiece(new Knight(57, Color.WHITE));
         builder.setPiece(new Knight(62, Color.WHITE));
 
-
         builder.setMoveMaker(Color.WHITE);
         return builder.build();
     }
