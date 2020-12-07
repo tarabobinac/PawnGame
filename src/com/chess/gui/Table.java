@@ -223,6 +223,28 @@ public class Table {
     }
 
     private void promptServer() {
+        if (server != null) {
+            try {
+                server.clearAll();
+                server = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (client != null) {
+            try {
+                client.clearAll();
+                client = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        gameDone = false;
+        numGames = 0;
+        completedGames = 0;
+        gameType = "none";
+        gameType = "none";
+        lines.clear();
         moveLog.clear();
         takenPiecesPanel.redo(moveLog);
         gameHistoryPanel.redo(moveLog);
@@ -606,6 +628,28 @@ public class Table {
     }
 
     private void promptClient() {
+        if (server != null) {
+            try {
+                server.clearAll();
+                server = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (client != null) {
+            try {
+                client.clearAll();
+                client = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        gameDone = false;
+        numGames = 0;
+        completedGames = 0;
+        gameType = "none";
+        gameType = "none";
+        lines.clear();
         moveLog.clear();
         takenPiecesPanel.redo(moveLog);
         gameHistoryPanel.redo(moveLog);
@@ -1211,7 +1255,6 @@ public class Table {
             this.numGames = 0;
             this.completedGames = 0;
             this.gameType = "none";
-            //this.winner = "none";
             this.gameType = "none";
             this.lines.clear();
         }

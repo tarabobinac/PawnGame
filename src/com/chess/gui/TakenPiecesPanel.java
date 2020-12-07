@@ -17,7 +17,7 @@ public class TakenPiecesPanel extends JPanel {
     private final JPanel westPanel;
     private final JPanel eastPanel;
     private static final Color PANEL_COLOR = Color.decode("#d9b382");
-    private static final Dimension TAKEN_PIECES_DIMENSION = new Dimension(120, 80);
+    private static final Dimension TAKEN_PIECES_DIMENSION = new Dimension(200, 80);
     private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
 
     public TakenPiecesPanel() {
@@ -60,7 +60,7 @@ public class TakenPiecesPanel extends JPanel {
             try {
                 final BufferedImage image = ImageIO.read(getClass().getResource("/pieces/" + takenPiece.getPieceColor().toString().charAt(0) + "" + takenPiece.toString() + ".png"));
                 final ImageIcon icon = new ImageIcon(image);
-                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth() - 30, icon.getIconWidth() - 30, Image.SCALE_SMOOTH)));
+                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-20, icon.getIconWidth()-20, Image.SCALE_SMOOTH)));
                 this.eastPanel.add(imageLabel);
             } catch (final IOException e) {
                 e.printStackTrace();
@@ -71,7 +71,7 @@ public class TakenPiecesPanel extends JPanel {
             try {
                 final BufferedImage image = ImageIO.read(getClass().getResource("/pieces/" + takenPiece.getPieceColor().toString().charAt(0) + "" + takenPiece.toString() + ".png"));
                 final ImageIcon icon = new ImageIcon(image);
-                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth() - 30, icon.getIconWidth() - 30, Image.SCALE_SMOOTH)));
+                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-20, icon.getIconWidth()-20, Image.SCALE_SMOOTH)));
                 this.westPanel.add(imageLabel);
             } catch (final IOException e) {
                 e.printStackTrace();

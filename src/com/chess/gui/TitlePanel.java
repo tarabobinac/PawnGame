@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class TitlePanel extends JPanel {
 
-    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 110);
+    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 90);
     private static final Color PANEL_COLOR = Color.decode("#EACACA");
 
     TitlePanel() {

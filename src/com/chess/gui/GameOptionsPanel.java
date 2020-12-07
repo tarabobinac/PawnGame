@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class GameOptionsPanel extends JPanel {
 
-    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 150);
+    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 140);
     private static final Color PANEL_COLOR = Color.decode("#D8CACA");
     private JButton resetButton;
     private JPanel westPanel;
