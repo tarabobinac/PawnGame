@@ -7,7 +7,7 @@ The Pawn Game is a Java application that allows two students on different comput
 
 **1. To download the game**: 
 
-Press the file labeled #PawnGame.jar# and press download in the upper righthand corner. Your computer will say that this type of file can harm your device because it can't read its contents, but press "Keep" to download it anyway; it will not harm your computer. The game should now be in your Downloads folder.
+Press the file labeled "PawnGame.jar" and press download in the upper righthand corner. Your computer will say that this type of file can harm your device because it can't read its contents, but press "Keep" to download it anyway; it will not harm your computer. The game should now be in your Downloads folder.
 
 
 
