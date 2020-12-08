@@ -14,21 +14,21 @@ public class TitlePanel extends JPanel {
         this.setBackground(PANEL_COLOR);
         this.validate();
 
-        JPanel titlePanel = new JPanel(new GridLayout(1, 1));
+        JPanel titlePanel = new JPanel(new GridBagLayout());
         titlePanel.setPreferredSize(new Dimension(600, 30));
         titlePanel.setBackground(PANEL_COLOR);
 
-        JPanel pawnPanel = new JPanel(new GridLayout(1, 1));
+        JPanel pawnPanel = new JPanel(new GridBagLayout());
         pawnPanel.setPreferredSize(new Dimension(600, 40));
         pawnPanel.setBackground(PANEL_COLOR);
 
-        JPanel namePanel = new JPanel(new GridLayout(1, 1));
+        JPanel namePanel = new JPanel(new GridBagLayout());
         namePanel.setPreferredSize(new Dimension(600, 30));
         namePanel.setBackground(PANEL_COLOR);
 
-        final JLabel chessCenter = new JLabel("                                                           U.S. Chess Center");
-        final JLabel pawnGame = new JLabel("                                              The Pawn Game");
-        final JLabel name = new JLabel("                                                              by Tara Bobinac");
+        final JLabel chessCenter = new JLabel("U.S. Chess Center");
+        final JLabel pawnGame = new JLabel("The Pawn Game");
+        final JLabel name = new JLabel("by Tara Bobinac");
 
         chessCenter.setFont(new Font("sans-serif", Font.BOLD, 24));
         pawnGame.setFont(new Font("sans-serif", Font.BOLD, 30));

@@ -1189,7 +1189,7 @@ public class Table {
                     final BufferedImage image = ImageIO.read(getClass().getResource(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceColor().toString().charAt(0) +
                             board.getTile(this.tileId).getPiece().toString() + ".png"));
                     ImageIcon icon = new ImageIcon(image);
-                    JLabel im = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-11, icon.getIconWidth()-11, Image.SCALE_SMOOTH)));
+                    JLabel im = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-12, icon.getIconWidth()-12, Image.SCALE_SMOOTH)));
                     im.setPreferredSize(new Dimension(70,70));
                     add(im);
                 } catch (IOException e) {
@@ -1206,7 +1206,7 @@ public class Table {
                         final BufferedImage image = ImageIO.read(getClass().getResource(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceColor().toString().charAt(0) +
                                 board.getTile(this.tileId).getPiece().toString() + "P.png"));
                         ImageIcon icon = new ImageIcon(image);
-                        JLabel im = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-11, icon.getIconWidth()-11, Image.SCALE_SMOOTH)));
+                        JLabel im = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-12, icon.getIconWidth()-12, Image.SCALE_SMOOTH)));
                         im.setPreferredSize(new Dimension(70,70));
                         add(im);
                     } catch (Exception e) {
