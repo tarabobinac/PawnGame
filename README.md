@@ -1,6 +1,6 @@
-#The Pawn Game#
-##U.S. Chess Center##
-##By Tara Bobinac##
+# The Pawn Game #
+## U.S. Chess Center ##
+## By Tara Bobinac ##
 
 The Pawn Game is a Java application that allows two students on different computers to play the U.S. Chess Center's Pawn Game.
 
