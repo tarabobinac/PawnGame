@@ -1,6 +1,6 @@
-#The Pawn Game
-U.S. Chess Center
-By Tara Bobinac
+#The Pawn Game#
+##U.S. Chess Center##
+##By Tara Bobinac##
 
 The Pawn Game is a Java application that allows two students on different computers to play the U.S. Chess Center's Pawn Game.
 
@@ -40,8 +40,8 @@ Press the file labeled #PawnGame.jar# and press download in the upper righthand 
    
       For Linux OS users: go to your Applications and type in Terminal. It looks like a black box with a white arrow and line. When you open it, type in "ifconfig -a". Press enter. To the right of the section labeled eth0, the number after HWaddr is your MAC address. For example:
    
-      ***eth0      Link encap:Ethernet HWaddr #00:08:C7:1B:8C:02#
-            inet addr:192.168.111.20  Bcast:192.168.111.255  Mask:255.255.255.0****
+      eth0      Link encap:Ethernet HWaddr #00:08:C7:1B:8C:02#
+            inet addr:192.168.111.20  Bcast:192.168.111.255  Mask:255.255.255.0
           
    The local IP address should now automatically fill in. If not...
           
