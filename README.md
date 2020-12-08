@@ -13,14 +13,14 @@ Press the file labeled #PawnGame.jar# and press download in the upper righthand 
 
 **2. If you do not already have Java installed on your computer, visit this link: https://www.oracle.com/java/technologies/javase-jdk15-downloads.html**
    
-   **If you have a Mac/Apple computer:**
-   Press the download link across from "macOS Installer". It should be labeled "jdk-15.0.1_osx-x64_bin.dmg".
+      If you have a Mac/Apple computer:
+      Press the download link across from "macOS Installer". It should be labeled "jdk-15.0.1_osx-x64_bin.dmg".
+  
+      If you have a Windows computer:
+      Press the download link across from "Windows x64 Installer". It should be labeled "jdk-15.0.1_windows-x64_bin.exe".
    
-   **If you have a Windows computer:** 
-   Press the download link across from "Windows x64 Installer". It should be labeled "jdk-15.0.1_windows-x64_bin.exe".
-   
-   **If you have a Linux OS:**
-   Press the download link across from "Linux x64 Debian Package". It should be labeled "jdk-15.0.1_linux-x64_bin.deb". If for any reason this doesn't work, download the link across from "Linux x64 RPM Package" or "Linux ARM 64 RPM Package".
+      If you have a Linux OS:
+      Press the download link across from "Linux x64 Debian Package". It should be labeled "jdk-15.0.1_linux-x64_bin.deb". If for any reason this doesn't work, download the link across from "Linux x64 RPM Package" or "Linux ARM 64 RPM Package".
    
    Java should now be in your Downloads folder.
    
@@ -36,9 +36,11 @@ Press the file labeled #PawnGame.jar# and press download in the upper righthand 
    
    Usually, there will be a dropdown menu under MAC address that has the name of your device. If you press it, it will automatically fill everything in. If not...
    
-      For Mac/Apple computers and Windows computers, find your MAC address with this link: https://faq.its.fsu.edu/network/device-registration/how-do-i-find-mac-address-my-computer
+      For Mac/Apple computers and Windows computers, find your MAC address with this link: 
+      https://faq.its.fsu.edu/network/device-registration/how-do-i-find-mac-address-my-computer
    
-      For Linux OS users: go to your Applications and type in Terminal. It looks like a black box with a white arrow and line. When you open it, type in "ifconfig -a". Press enter. To the right of the section labeled eth0, the number after HWaddr is your MAC address. For example:
+      For Linux OS users: 
+      go to your Applications and type in Terminal. It looks like a black box with a white arrow and line. When you open it, type in "ifconfig -a". Press enter. To the right of the section labeled eth0, the number after HWaddr is your MAC address. For example:
    
       eth0      Link encap:Ethernet HWaddr #00:08:C7:1B:8C:02#
             inet addr:192.168.111.20  Bcast:192.168.111.255  Mask:255.255.255.0
