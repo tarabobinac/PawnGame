@@ -60,7 +60,7 @@ public class TakenPiecesPanel extends JPanel {
             try {
                 final BufferedImage image = ImageIO.read(getClass().getResource("/pieces/" + takenPiece.getPieceColor().toString().charAt(0) + "" + takenPiece.toString() + ".png"));
                 final ImageIcon icon = new ImageIcon(image);
-                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-20, icon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-35, icon.getIconWidth()-35, Image.SCALE_SMOOTH)));
                 this.eastPanel.add(imageLabel);
             } catch (final IOException e) {
                 e.printStackTrace();
@@ -71,7 +71,7 @@ public class TakenPiecesPanel extends JPanel {
             try {
                 final BufferedImage image = ImageIO.read(getClass().getResource("/pieces/" + takenPiece.getPieceColor().toString().charAt(0) + "" + takenPiece.toString() + ".png"));
                 final ImageIcon icon = new ImageIcon(image);
-                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-20, icon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+                final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-35, icon.getIconWidth()-35, Image.SCALE_SMOOTH)));
                 this.westPanel.add(imageLabel);
             } catch (final IOException e) {
                 e.printStackTrace();

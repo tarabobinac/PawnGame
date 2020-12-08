@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class GameOptionsPanel extends JPanel {
 
-    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 140);
+    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 110);
     private static final Color PANEL_COLOR = Color.decode("#D8CACA");
     private JButton resetButton;
     private JPanel westPanel;
@@ -120,7 +120,7 @@ public class GameOptionsPanel extends JPanel {
         blackPlayer.setFont(font);
         blackPlayer.setBackground(Color.decode("#D8CACA"));
 
-        JLabel playerColor = new JLabel("       Pick your color:");
+        JLabel playerColor = new JLabel("       Pick your color:   ");
         playerColor.setFont(font);
         westPanel.add(playerColor);
 
@@ -223,7 +223,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage q = ImageIO.read(getClass().getResource("/pieces/BQ.png"));
             ImageIcon qIcon = new ImageIcon(q);
-            JLabel queen = new JLabel(qIcon);
+            JLabel queen = new JLabel(new ImageIcon(qIcon.getImage().getScaledInstance(qIcon.getIconWidth()-20, qIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             rooks = new JCheckBox("Rooks", false);
             rooks.setFont(font);
@@ -231,7 +231,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage r = ImageIO.read(getClass().getResource("/pieces/WR.png"));
             ImageIcon rIcon = new ImageIcon(r);
-            JLabel rook = new JLabel(rIcon);
+            JLabel rook = new JLabel(new ImageIcon(rIcon.getImage().getScaledInstance(rIcon.getIconWidth()-20, rIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             knights = new JCheckBox("Knights", false);
             knights.setFont(font);
@@ -239,7 +239,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage n = ImageIO.read(getClass().getResource("/pieces/BN.png"));
             ImageIcon nIcon = new ImageIcon(n);
-            JLabel knight = new JLabel(nIcon);
+            JLabel knight = new JLabel(new ImageIcon(nIcon.getImage().getScaledInstance(nIcon.getIconWidth()-20, nIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             bishops = new JCheckBox("Bishops", false);
             bishops.setFont(font);
@@ -247,7 +247,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage b = ImageIO.read(getClass().getResource("/pieces/WB.png"));
             ImageIcon bIcon = new ImageIcon(b);
-            JLabel bishop = new JLabel(bIcon);
+            JLabel bishop = new JLabel(new ImageIcon(bIcon.getImage().getScaledInstance(bIcon.getIconWidth()-20, bIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             centerPanel.add(queens);
             centerPanel.add(rooks);
@@ -312,7 +312,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage q = ImageIO.read(getClass().getResource("/pieces/BQ.png"));
             ImageIcon qIcon = new ImageIcon(q);
-            JLabel queen = new JLabel(qIcon);
+            JLabel queen = new JLabel(new ImageIcon(qIcon.getImage().getScaledInstance(qIcon.getIconWidth()-20, qIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             rooks = new JCheckBox("Rooks", false);
             rooks.setFont(font);
@@ -320,7 +320,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage r = ImageIO.read(getClass().getResource("/pieces/WR.png"));
             ImageIcon rIcon = new ImageIcon(r);
-            JLabel rook = new JLabel(rIcon);
+            JLabel rook = new JLabel(new ImageIcon(rIcon.getImage().getScaledInstance(rIcon.getIconWidth()-20, rIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             knights = new JCheckBox("Knights", false);
             knights.setFont(font);
@@ -328,7 +328,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage n = ImageIO.read(getClass().getResource("/pieces/BN.png"));
             ImageIcon nIcon = new ImageIcon(n);
-            JLabel knight = new JLabel(nIcon);
+            JLabel knight = new JLabel(new ImageIcon(nIcon.getImage().getScaledInstance(nIcon.getIconWidth()-20, nIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             bishops = new JCheckBox("Bishops", false);
             bishops.setFont(font);
@@ -336,7 +336,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage b = ImageIO.read(getClass().getResource("/pieces/WB.png"));
             ImageIcon bIcon = new ImageIcon(b);
-            JLabel bishop = new JLabel(bIcon);
+            JLabel bishop = new JLabel(new ImageIcon(bIcon.getImage().getScaledInstance(bIcon.getIconWidth()-20, bIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
 
             centerPanel.add(queens);
             centerPanel.add(rooks);

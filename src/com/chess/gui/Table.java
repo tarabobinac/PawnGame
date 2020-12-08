@@ -63,7 +63,7 @@ public class Table {
 
     public Table() {
 
-        this.font = new Font("sans-serif", Font.PLAIN, 40);
+        this.font = new Font("sans-serif", Font.PLAIN, 30);
 
         UIManager.put("Menu.font", new Font("sans-serif", Font.PLAIN, 35));
         UIManager.put("MenuItem.font", new Font("sans-serif", Font.PLAIN, 35));
@@ -1189,7 +1189,7 @@ public class Table {
                     final BufferedImage image = ImageIO.read(getClass().getResource(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceColor().toString().charAt(0) +
                             board.getTile(this.tileId).getPiece().toString() + ".png"));
                     ImageIcon icon = new ImageIcon(image);
-                    JLabel im = new JLabel(icon);
+                    JLabel im = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-11, icon.getIconWidth()-11, Image.SCALE_SMOOTH)));
                     im.setPreferredSize(new Dimension(70,70));
                     add(im);
                 } catch (IOException e) {
@@ -1203,8 +1203,12 @@ public class Table {
                 if (humanMovedPiece.getPiecePosition() == this.tileId) {
                     this.removeAll();
                     try {
-                        add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResource(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceColor().toString().charAt(0) +
-                                board.getTile(this.tileId).getPiece().toString() + "P.png")))));
+                        final BufferedImage image = ImageIO.read(getClass().getResource(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceColor().toString().charAt(0) +
+                                board.getTile(this.tileId).getPiece().toString() + "P.png"));
+                        ImageIcon icon = new ImageIcon(image);
+                        JLabel im = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth()-11, icon.getIconWidth()-11, Image.SCALE_SMOOTH)));
+                        im.setPreferredSize(new Dimension(70,70));
+                        add(im);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

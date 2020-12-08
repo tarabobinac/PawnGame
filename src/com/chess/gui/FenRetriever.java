@@ -7,7 +7,7 @@ public class FenRetriever extends JPanel {
 
     JPanel eastPanel;
     JRadioButton whitePlayer;
-    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 150);
+    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 110);
 
     FenRetriever() {
         super(new GridLayout(1, 4));
