@@ -22,7 +22,7 @@ public class GameHistoryPanel extends JPanel {
         scrollPane.setColumnHeaderView(table.getTableHeader());
         scrollPane.setPreferredSize(HISTORY_PANEL_DIMENSION);
         this.add(scrollPane, BorderLayout.CENTER);
-        table.setFont(new Font("sans-serif", Font.PLAIN, 23));
+        table.setFont(new Font("sans-serif", Font.PLAIN, 20));
         table.setRowHeight(25);
         this.setVisible(true);
     }

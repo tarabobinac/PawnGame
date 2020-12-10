@@ -97,7 +97,7 @@ public abstract class Move implements Serializable {
 
         @Override
         public String toString() {
-            return movedPiece.getPieceType() + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate);
+            return movedPiece.getPieceType() + "x" + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate);
         }
     }
 

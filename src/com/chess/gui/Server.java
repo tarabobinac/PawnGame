@@ -16,6 +16,7 @@ public class Server implements Serializable {
 
     Server() throws IOException {
         server = new ServerSocket(3000);
+        server.setSoTimeout(40000);
         server.setReuseAddress(true);
     }
 

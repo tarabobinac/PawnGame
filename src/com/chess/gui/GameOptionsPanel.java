@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class GameOptionsPanel extends JPanel {
 
-    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 110);
+    private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 120);
     private static final Color PANEL_COLOR = Color.decode("#D8CACA");
     private JButton resetButton;
     private JPanel westPanel;
@@ -68,10 +68,18 @@ public class GameOptionsPanel extends JPanel {
 
         Font font = new Font("sans-serif", Font.BOLD, 20);
 
+        JPanel northPanel = new JPanel (new GridBagLayout());
+        northPanel.setPreferredSize(new Dimension(600, 30));
+        northPanel.setBackground(Color.decode("#ffb266"));
+        JLabel message = new JLabel("* Remember to double click the destination tile *");
+        message.setFont(font);
+        northPanel.add(message);
+
         westPanel = new JPanel (new GridLayout(1, 3));
-        westPanel.setPreferredSize(new Dimension(600, 150));
+        westPanel.setPreferredSize(new Dimension(600, 100));
         westPanel.setBackground(PANEL_COLOR);
 
+        this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.CENTER);
 
         whitePlayer = new JRadioButton("White");
@@ -101,14 +109,22 @@ public class GameOptionsPanel extends JPanel {
 
         Font font = new Font("sans-serif", Font.BOLD, 20);
 
+        JPanel northPanel = new JPanel (new GridBagLayout());
+        northPanel.setPreferredSize(new Dimension(600, 30));
+        northPanel.setBackground(Color.decode("#ffb266"));
+        JLabel message = new JLabel("* Remember to double click the destination tile *");
+        message.setFont(font);
+        northPanel.add(message);
+
         westPanel = new JPanel (new GridLayout(1, 3));
         eastPanel = new JPanel (new GridLayout(1, 1));
 
-        westPanel.setPreferredSize(new Dimension(400, 150));
-        eastPanel.setPreferredSize(new Dimension(200, 150));
+        westPanel.setPreferredSize(new Dimension(400, 90));
+        eastPanel.setPreferredSize(new Dimension(200, 90));
 
         westPanel.setBackground(PANEL_COLOR);
 
+        this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.CENTER);
         this.add(eastPanel, BorderLayout.EAST);
 
@@ -139,6 +155,13 @@ public class GameOptionsPanel extends JPanel {
 
         Font font = new Font("sans-serif", Font.BOLD, 20);
 
+        JPanel northPanel = new JPanel (new GridBagLayout());
+        northPanel.setPreferredSize(new Dimension(600, 30));
+        northPanel.setBackground(Color.decode("#ffb266"));
+        JLabel message = new JLabel("* Remember to double click the destination tile *");
+        message.setFont(font);
+        northPanel.setFont(font);
+
         westPanel = new JPanel (new GridLayout(3, 1));
         centerPanel = new JPanel (new GridLayout(1,1));
         eastPanel = new JPanel (new GridLayout(1, 1));
@@ -149,6 +172,7 @@ public class GameOptionsPanel extends JPanel {
 
         westPanel.setBackground(PANEL_COLOR);
 
+        this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.WEST);
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(eastPanel, BorderLayout.EAST);
@@ -184,12 +208,20 @@ public class GameOptionsPanel extends JPanel {
 
         Font smallerFont = new Font("sans-serif", Font.BOLD, 20);
 
+        JPanel northPanel = new JPanel (new GridBagLayout());
+        northPanel.setPreferredSize(new Dimension(600, 30));
+        northPanel.setBackground(Color.decode("#ffb266"));
+        JLabel message = new JLabel("* Remember to double click the destination tile *");
+        message.setFont(smallerFont);
+        northPanel.add(message);
+
         westPanel = new JPanel (new GridLayout(3, 1));
         centerPanel = new JPanel (new GridLayout(2,4));
 
         westPanel.setBackground(PANEL_COLOR);
         centerPanel.setBackground(PANEL_COLOR);
 
+        this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.WEST);
         this.add(centerPanel, BorderLayout.CENTER);
 
@@ -223,7 +255,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage q = ImageIO.read(getClass().getResource("/pieces/BQ.png"));
             ImageIcon qIcon = new ImageIcon(q);
-            JLabel queen = new JLabel(new ImageIcon(qIcon.getImage().getScaledInstance(qIcon.getIconWidth()-20, qIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel queen = new JLabel(new ImageIcon(qIcon.getImage().getScaledInstance(qIcon.getIconWidth()-35, qIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             rooks = new JCheckBox("Rooks", false);
             rooks.setFont(font);
@@ -231,7 +263,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage r = ImageIO.read(getClass().getResource("/pieces/WR.png"));
             ImageIcon rIcon = new ImageIcon(r);
-            JLabel rook = new JLabel(new ImageIcon(rIcon.getImage().getScaledInstance(rIcon.getIconWidth()-20, rIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel rook = new JLabel(new ImageIcon(rIcon.getImage().getScaledInstance(rIcon.getIconWidth()-35, rIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             knights = new JCheckBox("Knights", false);
             knights.setFont(font);
@@ -239,7 +271,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage n = ImageIO.read(getClass().getResource("/pieces/BN.png"));
             ImageIcon nIcon = new ImageIcon(n);
-            JLabel knight = new JLabel(new ImageIcon(nIcon.getImage().getScaledInstance(nIcon.getIconWidth()-20, nIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel knight = new JLabel(new ImageIcon(nIcon.getImage().getScaledInstance(nIcon.getIconWidth()-35, nIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             bishops = new JCheckBox("Bishops", false);
             bishops.setFont(font);
@@ -247,7 +279,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage b = ImageIO.read(getClass().getResource("/pieces/WB.png"));
             ImageIcon bIcon = new ImageIcon(b);
-            JLabel bishop = new JLabel(new ImageIcon(bIcon.getImage().getScaledInstance(bIcon.getIconWidth()-20, bIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel bishop = new JLabel(new ImageIcon(bIcon.getImage().getScaledInstance(bIcon.getIconWidth()-35, bIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             centerPanel.add(queens);
             centerPanel.add(rooks);
@@ -269,6 +301,13 @@ public class GameOptionsPanel extends JPanel {
 
         Font smallerFont = new Font("sans-serif", Font.BOLD, 20);
 
+        JPanel northPanel = new JPanel (new GridBagLayout());
+        northPanel.setPreferredSize(new Dimension(600, 30));
+        northPanel.setBackground(Color.decode("#ffb266"));
+        JLabel message = new JLabel("* Remember to double click the destination tile *");
+        message.setFont(smallerFont);
+        northPanel.add(message);
+
         westPanel = new JPanel (new GridLayout(3, 1));
         centerPanel = new JPanel (new GridLayout(2,4));
         eastPanel = new JPanel (new GridLayout(1, 1));
@@ -278,6 +317,7 @@ public class GameOptionsPanel extends JPanel {
         westPanel.setBackground(PANEL_COLOR);
         centerPanel.setBackground(PANEL_COLOR);
 
+        this.add(northPanel, BorderLayout.NORTH);
         this.add(westPanel, BorderLayout.WEST);
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(eastPanel, BorderLayout.EAST);
@@ -312,7 +352,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage q = ImageIO.read(getClass().getResource("/pieces/BQ.png"));
             ImageIcon qIcon = new ImageIcon(q);
-            JLabel queen = new JLabel(new ImageIcon(qIcon.getImage().getScaledInstance(qIcon.getIconWidth()-20, qIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel queen = new JLabel(new ImageIcon(qIcon.getImage().getScaledInstance(qIcon.getIconWidth()-35, qIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             rooks = new JCheckBox("Rooks", false);
             rooks.setFont(font);
@@ -320,7 +360,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage r = ImageIO.read(getClass().getResource("/pieces/WR.png"));
             ImageIcon rIcon = new ImageIcon(r);
-            JLabel rook = new JLabel(new ImageIcon(rIcon.getImage().getScaledInstance(rIcon.getIconWidth()-20, rIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel rook = new JLabel(new ImageIcon(rIcon.getImage().getScaledInstance(rIcon.getIconWidth()-35, rIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             knights = new JCheckBox("Knights", false);
             knights.setFont(font);
@@ -328,7 +368,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage n = ImageIO.read(getClass().getResource("/pieces/BN.png"));
             ImageIcon nIcon = new ImageIcon(n);
-            JLabel knight = new JLabel(new ImageIcon(nIcon.getImage().getScaledInstance(nIcon.getIconWidth()-20, nIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel knight = new JLabel(new ImageIcon(nIcon.getImage().getScaledInstance(nIcon.getIconWidth()-35, nIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             bishops = new JCheckBox("Bishops", false);
             bishops.setFont(font);
@@ -336,7 +376,7 @@ public class GameOptionsPanel extends JPanel {
 
             BufferedImage b = ImageIO.read(getClass().getResource("/pieces/WB.png"));
             ImageIcon bIcon = new ImageIcon(b);
-            JLabel bishop = new JLabel(new ImageIcon(bIcon.getImage().getScaledInstance(bIcon.getIconWidth()-20, bIcon.getIconWidth()-20, Image.SCALE_SMOOTH)));
+            JLabel bishop = new JLabel(new ImageIcon(bIcon.getImage().getScaledInstance(bIcon.getIconWidth()-35, bIcon.getIconWidth()-35, Image.SCALE_SMOOTH)));
 
             centerPanel.add(queens);
             centerPanel.add(rooks);

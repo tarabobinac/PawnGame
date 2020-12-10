@@ -14,6 +14,7 @@ public class Client implements Serializable {
 
     Client(String IP) throws IOException {
         socket = new Socket(IP, 3000);
+        socket.setSoTimeout(40000);
     }
 
     public Socket getSocket() {

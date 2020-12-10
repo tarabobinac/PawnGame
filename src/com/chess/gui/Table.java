@@ -335,14 +335,19 @@ public class Table {
                         standard.setBorder(null);
                         JOptionPane.showMessageDialog(gameFrame, standard);
                         server.setSocket(server.getServerSocket());
-                        JLabel success = new JLabel();
                         if (color == WHITE) {
-                            success = new JLabel("Connected! White (you) starts the game.");
+                            JLabel success = new JLabel("Connected! White (you) starts the game.");
+                            success.setFont(font);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         } else if (color == BLACK) {
-                            success = new JLabel("Connected! You are black. Wait for white to make their turn.");
+                            JTextPane success = new JTextPane();
+                            success.setContentType("text");
+                            success.setText("Connected! You are black.\n\nClick the center of the board and wait for white to make their turn.");
+                            success.setBackground(null);
+                            success.setFont(font);
+                            success.setBorder(null);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         }
-                        success.setFont(font);
-                        JOptionPane.showMessageDialog(gameFrame, success);
                     } catch (Exception ioException) {
                         JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
                         issue.setFont(font);
@@ -459,18 +464,31 @@ public class Table {
                         FEN.setBorder(null);
                         JOptionPane.showMessageDialog(gameFrame, FEN);
                         server.setSocket(server.getServerSocket());
-                        JLabel success = new JLabel();
                         if (color == WHITE && chessBoard.currentPlayer().getColor() == WHITE) {
-                            success = new JLabel("Connected! White (you) starts the game.");
+                            JLabel success = new JLabel("Connected! White (you) starts the game.");
+                            success.setFont(font);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         } else if (color == WHITE && chessBoard.currentPlayer().getColor() == BLACK) {
-                            success = new JLabel("Connected! You are white. Wait for black to make their turn.");
+                            JTextPane success = new JTextPane();
+                            success.setContentType("text");
+                            success.setText("Connected! You are white.\nClick the center of the board and wait for black to make their turn.");
+                            success.setBackground(null);
+                            success.setFont(font);
+                            success.setBorder(null);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         } else if (color == BLACK && chessBoard.currentPlayer().getColor() == BLACK) {
-                            success = new JLabel("Connected! Black (you) starts the game.");
+                            JLabel success = new JLabel("Connected! Black (you) starts the game.");
+                            success.setFont(font);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         } else if (color == BLACK && chessBoard.currentPlayer().getColor() == WHITE) {
-                            success = new JLabel("Connected! You are black. Wait for white to make their turn.");
+                            JTextPane success = new JTextPane();
+                            success.setContentType("text");
+                            success.setText("Connected! You are black.\nClick the center of the board and wait for white to make their turn.");
+                            success.setBackground(null);
+                            success.setFont(font);
+                            success.setBorder(null);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         }
-                        success.setFont(font);
-                        JOptionPane.showMessageDialog(gameFrame, success);
                     } catch (IOException ioException) {
                         JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
                         issue.setFont(font);
@@ -578,18 +596,31 @@ public class Table {
                         fileGame.setBorder(null);
                         JOptionPane.showMessageDialog(gameFrame, fileGame);
                         server.setSocket(server.getServerSocket());
-                        JLabel success = new JLabel();
                         if (color == WHITE && chessBoard.currentPlayer().getColor() == WHITE) {
-                            success = new JLabel("Connected! White (you) starts the game.");
+                            JLabel success = new JLabel("Connected! White (you) starts the game.");
+                            success.setFont(font);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         } else if (color == WHITE && chessBoard.currentPlayer().getColor() == BLACK) {
-                            success = new JLabel("Connected! You are white. Wait for black to make their turn.");
+                            JTextPane success = new JTextPane();
+                            success.setContentType("text");
+                            success.setText("Connected! You are white.\nClick the center of the board and wait for black to make their turn.");
+                            success.setBackground(null);
+                            success.setFont(font);
+                            success.setBorder(null);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         } else if (color == BLACK && chessBoard.currentPlayer().getColor() == BLACK) {
-                            success = new JLabel("Connected! Black (you) starts the game.");
+                            JLabel success = new JLabel("Connected! Black (you) starts the game.");
+                            success.setFont(font);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         } else if (color == BLACK && chessBoard.currentPlayer().getColor() == WHITE) {
-                            success = new JLabel("Connected! You are black. Wait for white to make their turn.");
+                            JTextPane success = new JTextPane();
+                            success.setContentType("text");
+                            success.setText("Connected! You are black.\nClick the center of the board and wait for white to make their turn.");
+                            success.setBackground(null);
+                            success.setFont(font);
+                            success.setBorder(null);
+                            JOptionPane.showMessageDialog(gameFrame, success);
                         }
-                        success.setFont(font);
-                        JOptionPane.showMessageDialog(gameFrame, success);
                     } catch (Exception ioException) {
                         JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
                         issue.setFont(font);
@@ -701,7 +732,7 @@ public class Table {
                 if (chessBoard.currentPlayer().getColor() == WHITE) {
                     success = new JLabel("Connected! White (you) starts the game.");
                 } else if (chessBoard.currentPlayer().getColor() == BLACK) {
-                    success = new JLabel("Connected! You are white. Wait for black to make their turn.");
+                    success = new JLabel("Connected! You are white. Click the center of the board and wait for black to make their turn.");
                 }
                 gameOptionsPanel.setColor(stringColor);
                 boardDirection = BoardDirection.NORMAL;
@@ -710,7 +741,7 @@ public class Table {
                 if (chessBoard.currentPlayer().getColor() == BLACK) {
                     success = new JLabel("Connected! Black (you) starts the game.");
                 } else if (chessBoard.currentPlayer().getColor() == WHITE) {
-                    success = new JLabel("Connected! You are black. Wait for white to make their turn.");
+                    success = new JLabel("Connected! You are black. Click the center of the board and wait for white to make their turn.");
                 }
                 gameOptionsPanel.setColor(stringColor);
                 boardDirection = BoardDirection.FLIPPED;
@@ -745,7 +776,7 @@ public class Table {
                 boardDirection = BoardDirection.NORMAL;
             } else if (stringColor.equals("b")) {
                 color = BLACK;
-                success = new JLabel("Connected! You are black. Wait for white to make their turn.");
+                success = new JLabel("Connected! You are black. Click the center of the board and wait for white to make their turn.");
                 gameOptionsPanel.setColor(stringColor);
                 boardDirection = BoardDirection.FLIPPED;
             }
