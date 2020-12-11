@@ -12,11 +12,11 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
 
   If you do not already have Java installed on your computer, visit this link: https://www.oracle.com/java/technologies/javase-jdk15-downloads.html**
    
-   If you have a **Mac/Apple computer**: Press the download link across from "macOS Installer".
+   - If you have a **Mac/Apple computer**: Press the download link across from "macOS Installer".
   
-   If you have a **Windows computer**: Press the download link across from "Windows x64 Installer".
+   - If you have a **Windows computer**: Press the download link across from "Windows x64 Installer".
    
-   If you have a **Linux OS**: Press the download link across from "Linux x64 Debian Package". 
+   - If you have a **Linux OS**: Press the download link across from "Linux x64 Debian Package". 
   
   **If for any reason the later steps do not work and you have a Linux OS, download the link across from "Linux x64 RPM Package" or "Linux ARM 64 RPM Package".**
    
@@ -29,7 +29,7 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
    
   Go to https://github.com/kaklakariada/portmapper. Scroll down to where it says "Download Now". Your computer will say that this type of file can harm your device because it can't read its contents, but press "Keep" to download it anyway; it will not harm your computer. The program should now be in your downloads folder.
    
-   If you have a **Mac/Apple computer**: Make sure the file labeled "portmapper-2.2.1.jar" is still in your Downloads folder. Keep it there! Go to your Applications (the rocket button at the bottom of the screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
+   - If you have a **Mac/Apple computer**: Make sure the file labeled "portmapper-2.2.1.jar" is still in your Downloads folder. Keep it there! Go to your Applications (the rocket button at the bottom of the screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
 
    When you open it, type in:
    
@@ -37,13 +37,13 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
    
    and hit enter. Then type in:
    
-      java -jar portmapper-2.2.1.jar"
+      java -jar portmapper-2.2.1.jar
    
    and press enter.
       
-  If you have a **Windows computer**: Go into your Downloads folder and double click the program titled "portmapper-2.2.1.jar".
+  - If you have a **Windows computer**: Go into your Downloads folder and double click the program titled "portmapper-2.2.1.jar".
       
-  If you have a **Linux OS**: Make sure the file labeled "portmapper-2.2.1.jar" is still in your Downloads folder. Keep it there! Go to your Applications (on the bottom left of your screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
+  - If you have a **Linux OS**: Make sure the file labeled "portmapper-2.2.1.jar" is still in your Downloads folder. Keep it there! Go to your Applications (on the bottom left of your screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
   
    When you open it, type in:
    
@@ -51,7 +51,7 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
    
    and hit enter. Then type in:
    
-      java -jar portmapper-2.2.1.jar"
+      java -jar portmapper-2.2.1.jar
    
    and press enter.
       
@@ -68,7 +68,7 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
    
 **4. Time to play the game!**
    
-  If you have a **Mac/Apple computer**: Make sure the file labeled "PawnGame.jar" is still in your Downloads folder. Keep it there! Go to your Applications (the rocket button at the bottom of the screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
+  - If you have a **Mac/Apple computer**: Make sure the file labeled "PawnGame.jar" is still in your Downloads folder. Keep it there! Go to your Applications (the rocket button at the bottom of the screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
   
    When you open it, type in:
    
@@ -76,13 +76,13 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
    
    and hit enter. Then type in:
    
-      java -jar portmapper-2.2.1.jar"
+      java -jar PawnGame.jar
    
    and press enter. Your game should be working!
    
-  If you have a **Windows computer**: Find the folder where you have the file PawnGame.jar (it should be in your Downloads folder unless you moved it). Double click it. Your game should be working!
+  - If you have a **Windows computer**: Find the folder where you have the file PawnGame.jar (it should be in your Downloads folder unless you moved it). Double click it. Your game should be working!
    
-  If you have a **Linux OS**: Make sure the file labeled "PawnGame.jar" is still in your Downloads folder. Keep it there! Go to your Applications (bottom left of your screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
+  - If you have a **Linux OS**: Make sure the file labeled "PawnGame.jar" is still in your Downloads folder. Keep it there! Go to your Applications (bottom left of your screen) and type "Terminal" into the search bar. It looks like a black box with a white arrow and line. 
   
    When you open it, type in:
    
