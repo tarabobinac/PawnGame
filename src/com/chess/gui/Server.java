@@ -54,4 +54,10 @@ public class Server implements Serializable {
         this.socket.close();
         this.server.close();
     }
+
+    public void clearSome() throws IOException {
+        this.outputStream.close();
+        this.inputStream.close();
+        this.socket.close();
+    }
 }

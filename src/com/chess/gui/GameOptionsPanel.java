@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+
 public class GameOptionsPanel extends JPanel {
 
     private static final Dimension GAME_OPTIONS_PANEL_DIMENSION = new Dimension(600, 120);
@@ -71,7 +72,7 @@ public class GameOptionsPanel extends JPanel {
         JPanel northPanel = new JPanel (new GridBagLayout());
         northPanel.setPreferredSize(new Dimension(600, 30));
         northPanel.setBackground(Color.decode("#ffb266"));
-        JLabel message = new JLabel("* Remember to double click the destination tile *");
+        JLabel message = new JLabel("* Remember to double click the board to update *");
         message.setFont(font);
         northPanel.add(message);
 
@@ -112,9 +113,29 @@ public class GameOptionsPanel extends JPanel {
         JPanel northPanel = new JPanel (new GridBagLayout());
         northPanel.setPreferredSize(new Dimension(600, 30));
         northPanel.setBackground(Color.decode("#ffb266"));
-        JLabel message = new JLabel("* Remember to double click the destination tile *");
+
+        JTextPane message = new JTextPane();
+        message.setContentType("text");
+        message.setText("* Remember to double click the board to update *");
+        GridBagConstraints messageConstraints = new GridBagConstraints();
+        messageConstraints.weightx = 1.0;
+        message.setBackground(Color.decode("#ffb266"));
         message.setFont(font);
-        northPanel.add(message);
+        message.setBorder(null);
+        northPanel.add(message, messageConstraints);
+        try {
+            JTextPane ipAddress = new JTextPane();
+            ipAddress.setContentType("text");
+            ipAddress.setText("IP: " + Table.getIP());
+            ipAddress.setBackground(Color.decode("#dff7f7"));
+            ipAddress.setFont(font);
+            ipAddress.setBorder(null);
+            GridBagConstraints ipConstraints = new GridBagConstraints();
+            ipConstraints.weightx = 0.00;
+            northPanel.add(ipAddress, ipConstraints);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         westPanel = new JPanel (new GridLayout(1, 3));
         eastPanel = new JPanel (new GridLayout(1, 1));
@@ -158,9 +179,29 @@ public class GameOptionsPanel extends JPanel {
         JPanel northPanel = new JPanel (new GridBagLayout());
         northPanel.setPreferredSize(new Dimension(600, 30));
         northPanel.setBackground(Color.decode("#ffb266"));
-        JLabel message = new JLabel("* Remember to double click the destination tile *");
+
+        JTextPane message = new JTextPane();
+        message.setContentType("text");
+        message.setText("* Remember to double click the board to update *");
+        GridBagConstraints messageConstraints = new GridBagConstraints();
+        messageConstraints.weightx = 1.0;
+        message.setBackground(Color.decode("#ffb266"));
         message.setFont(font);
-        northPanel.setFont(font);
+        message.setBorder(null);
+        northPanel.add(message, messageConstraints);
+        try {
+            JTextPane ipAddress = new JTextPane();
+            ipAddress.setContentType("text");
+            ipAddress.setText("IP: " + Table.getIP());
+            ipAddress.setBackground(Color.decode("#dff7f7"));
+            ipAddress.setFont(font);
+            ipAddress.setBorder(null);
+            GridBagConstraints ipConstraints = new GridBagConstraints();
+            ipConstraints.weightx = 0.00;
+            northPanel.add(ipAddress, ipConstraints);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         westPanel = new JPanel (new GridLayout(3, 1));
         centerPanel = new JPanel (new GridLayout(1,1));
@@ -211,7 +252,7 @@ public class GameOptionsPanel extends JPanel {
         JPanel northPanel = new JPanel (new GridBagLayout());
         northPanel.setPreferredSize(new Dimension(600, 30));
         northPanel.setBackground(Color.decode("#ffb266"));
-        JLabel message = new JLabel("* Remember to double click the destination tile *");
+        JLabel message = new JLabel("* Remember to double click the board to update *");
         message.setFont(smallerFont);
         northPanel.add(message);
 
@@ -246,7 +287,6 @@ public class GameOptionsPanel extends JPanel {
         westPanel.add(blackPlayer);
 
         try {
-
             Font font = new Font("sans-serif", Font.BOLD, 25);
 
             queens = new JCheckBox("Queens", false);
@@ -304,9 +344,29 @@ public class GameOptionsPanel extends JPanel {
         JPanel northPanel = new JPanel (new GridBagLayout());
         northPanel.setPreferredSize(new Dimension(600, 30));
         northPanel.setBackground(Color.decode("#ffb266"));
-        JLabel message = new JLabel("* Remember to double click the destination tile *");
+
+        JTextPane message = new JTextPane();
+        message.setContentType("text");
+        message.setText("* Remember to double click the board to update *");
+        GridBagConstraints messageConstraints = new GridBagConstraints();
+        messageConstraints.weightx = 1.0;
+        message.setBackground(Color.decode("#ffb266"));
         message.setFont(smallerFont);
-        northPanel.add(message);
+        message.setBorder(null);
+        northPanel.add(message, messageConstraints);
+        try {
+            JTextPane ipAddress = new JTextPane();
+            ipAddress.setContentType("text");
+            ipAddress.setText("IP: " + Table.getIP());
+            ipAddress.setBackground(Color.decode("#dff7f7"));
+            ipAddress.setFont(smallerFont);
+            ipAddress.setBorder(null);
+            GridBagConstraints ipConstraints = new GridBagConstraints();
+            ipConstraints.weightx = 0.00;
+            northPanel.add(ipAddress, ipConstraints);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         westPanel = new JPanel (new GridLayout(3, 1));
         centerPanel = new JPanel (new GridLayout(2,4));

@@ -112,18 +112,25 @@ public class Table {
     private JMenu createFileMenu() {
         final JMenu fileMenu = new JMenu("File");
 
+        final JMenuItem aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener(e -> {
+            AboutPage aboutPage = new AboutPage();
+            aboutPage.promptAboutPage();
+        });
+
         final JMenuItem savePGNItem = new JMenuItem("Save GamePlay File");
         savePGNItem.addActionListener(e -> writeGameToFile(resetBoard, moveLog));
 
         final JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(e -> System.exit(0));
 
+        fileMenu.add(aboutItem);
         fileMenu.add(savePGNItem);
         fileMenu.add(exitMenuItem);
         return fileMenu;
     }
 
-    private static String getIP() throws Exception {
+    public static String getIP() throws Exception {
         URL IPAddress = new URL("http://checkip.amazonaws.com");
         BufferedReader in = null;
         try {
@@ -224,16 +231,30 @@ public class Table {
 
     private void promptServer() {
         if (server != null) {
+            if (server.getInputStream() != null && server.getOutputStream() != null && server.getSocket() != null) {
+                try {
+                    server.clearSome();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
-                server.clearAll();
+                server.getServerSocket().close();
                 server = null;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         if (client != null) {
+            if (client.getInputStream() != null && client.getOutputStream() != null) {
+                try {
+                    client.clearSome();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
-                client.clearAll();
+                client.getSocket().close();
                 client = null;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -660,16 +681,30 @@ public class Table {
 
     private void promptClient() {
         if (server != null) {
+            if (server.getInputStream() != null && server.getOutputStream() != null && server.getSocket() != null) {
+                try {
+                    server.clearSome();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
-                server.clearAll();
+                server.getServerSocket().close();
                 server = null;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         if (client != null) {
+            if (client.getInputStream() != null && client.getOutputStream() != null) {
+                try {
+                    client.clearSome();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
-                client.clearAll();
+                client.getSocket().close();
                 client = null;
             } catch (IOException e) {
                 e.printStackTrace();

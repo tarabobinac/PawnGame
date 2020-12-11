@@ -14,7 +14,6 @@ public class Client implements Serializable {
 
     Client(String IP) throws IOException {
         socket = new Socket(IP, 3000);
-        socket.setSoTimeout(40000);
     }
 
     public Socket getSocket() {
@@ -41,5 +40,10 @@ public class Client implements Serializable {
         this.inputStream.close();
         this.outputStream.close();
         this.socket.close();
+    }
+
+    public void clearSome() throws IOException {
+        this.inputStream.close();
+        this.outputStream.close();
     }
 }
