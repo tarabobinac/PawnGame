@@ -10,7 +10,7 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
 
 **2. Downloading Java**
 
-  If you do not already have Java installed on your computer, visit this link: https://www.oracle.com/java/technologies/javase-jdk15-downloads.html**
+  If you do not already have Java installed on your computer, visit this link: https://www.oracle.com/java/technologies/javase-jdk15-downloads.html
    
    - If you have a **Mac/Apple computer**: Press the download link across from "macOS Installer".
   
@@ -65,6 +65,8 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
    
    If you ever want to remove this network connection, open the program, press "Connect", press the "Pawn Game" under **Port mappings** and press "Remove" then "Update" and close the program. Remember that if you do this and you want to play the Pawn Game again, you will have to follow all of the parts of step 3 again except for the downloading.
    
+   **If for any reason any of these steps do not work, visit the link at the beginning of step 3 and scroll down until you find your problem. There you will find various solutions to the issue you are facing.**
+   
    
 **4. Time to play the game!**
    
@@ -93,6 +95,15 @@ Press the file labeled "PawnGame.jar" and press download in the upper righthand 
       java -jar PawnGame.jar
       
    and press enter. Your game should be working!
+   
+   
+   Although all known bugs have been addressed, if the game ever becomes unresponsive and you cannot close it:
+   
+   - If you have a **Mac/Apple computer**: Press the red "X" at the top left corner of the terminal in which you typed "java -jar PawnGame.jar". This will stop the program.
+   
+   - If you have a **Windows computer**: Hold "Control + Alt + Delete" at the same time. Your keyboard may vary. If this does not work, try "Control + Shift + Escape". Select "Task Manager". Select the unresponsive app. Tap "End Task". This will stop the program.
+   
+   - If you have a **Linux OS**: Press the "X" that should be in the top right corner of the terminal in which you typed "java -jar PawnGame.jar". This will stop the program.
   
    
    **When you want to play again, all you need to do is repeat step 4. Have fun playing the Pawn Game!**
