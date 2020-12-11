@@ -4,6 +4,7 @@
 **Credits**: This application uses Open Source components. You can find the source code of this open source project along with license information below. I acknowledge and am grateful to developer https://github.com/amir650 for their contributions to open source. The merging of different parts of the code and especially the GUI are all thanks to them.
 
 **Project**: BlackWidow-Chess https://github.com/amir650/BlackWidow-Chess
+
 **License (LGPL-2.1)**: https://github.com/git/git/blob/master/LGPL-2.1
 
 The Pawn Game is a Java application that allows two students on different computers to play the U.S. Chess Center's Pawn Game.
