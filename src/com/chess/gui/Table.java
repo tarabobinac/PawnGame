@@ -356,26 +356,6 @@ public class Table {
                         standard.setBorder(null);
                         JOptionPane.showMessageDialog(gameFrame, standard);
                         server.setSocket(server.getServerSocket());
-                        if (color == WHITE) {
-                            JLabel success = new JLabel("Connected! White (you) starts the game.");
-                            success.setFont(font);
-                            JOptionPane.showMessageDialog(gameFrame, success);
-                        } else if (color == BLACK) {
-                            JTextPane success = new JTextPane();
-                            success.setContentType("text");
-                            success.setText("Connected! You are black. Double click the board and wait for white's move.");
-                            success.setBackground(null);
-                            success.setFont(font);
-                            success.setBorder(null);
-                            JOptionPane.showMessageDialog(gameFrame, success);
-                        }
-                    } catch (Exception ioException) {
-                        JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
-                        issue.setFont(font);
-                        JOptionPane.showMessageDialog(gameFrame, issue);
-                        ioException.printStackTrace();
-                    }
-                    try {
                         server.setObjectInputStream(server.getSocket());
                         server.setObjectOutputStream(server.getSocket());
                         server.getOutputStream().writeObject(gameType);
@@ -390,7 +370,20 @@ public class Table {
                         server.getOutputStream().writeObject(gameOptionsPanel.getKnights().isSelected());
                         server.getOutputStream().writeObject(gameOptionsPanel.getBishops().isSelected());
                         server.getOutputStream().writeObject(numGames);
-                    } catch (IOException ioException) {
+                        if (color == WHITE) {
+                            JLabel success = new JLabel("Connected! White (you) starts the game.");
+                            success.setFont(font);
+                            JOptionPane.showMessageDialog(gameFrame, success);
+                        } else if (color == BLACK) {
+                            JTextPane success = new JTextPane();
+                            success.setContentType("text");
+                            success.setText("Connected! You are black. Double click the board and wait for white's move.");
+                            success.setBackground(null);
+                            success.setFont(font);
+                            success.setBorder(null);
+                            JOptionPane.showMessageDialog(gameFrame, success);
+                        }
+                    } catch (Exception ioException) {
                         JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
                         issue.setFont(font);
                         JOptionPane.showMessageDialog(gameFrame, issue);
@@ -485,6 +478,17 @@ public class Table {
                         FEN.setBorder(null);
                         JOptionPane.showMessageDialog(gameFrame, FEN);
                         server.setSocket(server.getServerSocket());
+                        server.setObjectInputStream(server.getSocket());
+                        server.setObjectOutputStream(server.getSocket());
+                        server.getOutputStream().writeObject(gameType);
+                        server.getOutputStream().writeObject(chessBoard);
+                        server.getOutputStream().writeObject(moveLog);
+                        if (color == WHITE) {
+                            server.getOutputStream().writeObject("b");
+                        } else {
+                            server.getOutputStream().writeObject("w");
+                        }
+                        server.getOutputStream().writeObject(numGames);
                         if (color == WHITE && chessBoard.currentPlayer().getColor() == WHITE) {
                             JLabel success = new JLabel("Connected! White (you) starts the game.");
                             success.setFont(font);
@@ -518,39 +522,11 @@ public class Table {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    try {
-                        server.setObjectInputStream(server.getSocket());
-                        server.setObjectOutputStream(server.getSocket());
-                        server.getOutputStream().writeObject(gameType);
-                        server.getOutputStream().writeObject(chessBoard);
-                        server.getOutputStream().writeObject(moveLog);
-                        if (color == WHITE) {
-                            server.getOutputStream().writeObject("b");
-                        } else {
-                            server.getOutputStream().writeObject("w");
-                        }
-                        server.getOutputStream().writeObject(numGames);
-                    } catch (IOException ioException) {
-                        JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
-                        issue.setFont(font);
-                        JOptionPane.showMessageDialog(gameFrame, issue);
-                        ioException.printStackTrace();
-                    }
                     ready.setEnabled(false);
                     gameOptionsPanel.disableFENButtons();
                 });
                 gameOptionsPanel.getResetButton().addActionListener(e12 -> {
                     if (chessBoard.currentPlayer().getColor() == color) {
-                        JLabel display;
-                        if (color == BLACK && !blackStarts) {
-                            display = new JLabel("White starts. Double click the board and wait for their move.");
-                        } else if (color == WHITE && blackStarts) {
-                            display = new JLabel("Black starts. Double click the board and wait for their move.");
-                        } else {
-                            display = new JLabel("You make the first move.");
-                        }
-                        display.setFont(font);
-                        JOptionPane.showMessageDialog(gameFrame, display);
                         chessBoard = resetBoard;
                         moveLog = new MoveLog();
                         gameHistoryPanel.redo(moveLog);
@@ -565,6 +541,16 @@ public class Table {
                             JOptionPane.showMessageDialog(gameFrame, issue);
                             ioException.printStackTrace();
                         }
+                        JLabel display;
+                        if (color == BLACK && !blackStarts) {
+                            display = new JLabel("White starts. Double click the board and wait for their move.");
+                        } else if (color == WHITE && blackStarts) {
+                            display = new JLabel("Black starts. Double click the board and wait for their move.");
+                        } else {
+                            display = new JLabel("You make the first move.");
+                        }
+                        display.setFont(font);
+                        JOptionPane.showMessageDialog(gameFrame, display);
                     }
                 });
                 gameOptionsPanel.addToEastPanel(ready);
@@ -627,6 +613,17 @@ public class Table {
                         fileGame.setBorder(null);
                         JOptionPane.showMessageDialog(gameFrame, fileGame);
                         server.setSocket(server.getServerSocket());
+                        server.setObjectInputStream(server.getSocket());
+                        server.setObjectOutputStream(server.getSocket());
+                        server.getOutputStream().writeObject(gameType);
+                        server.getOutputStream().writeObject(chessBoard);
+                        server.getOutputStream().writeObject(moveLog);
+                        if (color == WHITE) {
+                            server.getOutputStream().writeObject("b");
+                        } else {
+                            server.getOutputStream().writeObject("w");
+                        }
+                        server.getOutputStream().writeObject(numGames);
                         if (color == WHITE && chessBoard.currentPlayer().getColor() == WHITE) {
                             JLabel success = new JLabel("Connected! White (you) starts the game.");
                             success.setFont(font);
@@ -653,24 +650,6 @@ public class Table {
                             JOptionPane.showMessageDialog(gameFrame, success);
                         }
                     } catch (Exception ioException) {
-                        JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
-                        issue.setFont(font);
-                        JOptionPane.showMessageDialog(gameFrame, issue);
-                        ioException.printStackTrace();
-                    }
-                    try {
-                        server.setObjectInputStream(server.getSocket());
-                        server.setObjectOutputStream(server.getSocket());
-                        server.getOutputStream().writeObject(gameType);
-                        server.getOutputStream().writeObject(chessBoard);
-                        server.getOutputStream().writeObject(moveLog);
-                        if (color == WHITE) {
-                            server.getOutputStream().writeObject("b");
-                        } else {
-                            server.getOutputStream().writeObject("w");
-                        }
-                        server.getOutputStream().writeObject(numGames);
-                    } catch (IOException ioException) {
                         JLabel issue = new JLabel("Something went wrong! Exit the program and try again.");
                         issue.setFont(font);
                         JOptionPane.showMessageDialog(gameFrame, issue);
@@ -1794,7 +1773,7 @@ public class Table {
                             resetClicked.setFont(font);
                             JOptionPane.showMessageDialog(gameFrame, resetClicked);
                         } else {
-                            resetClicked = new JLabel("Black hit reset. The game will restart. Double click the board and wait for white's move.");
+                            resetClicked = new JLabel("Black hit reset. The game will restart. Double click the board and wait for black's move.");
                             resetClicked.setFont(font);
                             JOptionPane.showMessageDialog(gameFrame, resetClicked);
                             Board temporaryBoard = chessBoard;
