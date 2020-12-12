@@ -105,6 +105,8 @@ Press the file labeled "PawnGame.jar" and press "Download" in the upper righthan
    
    Although all known bugs have been addressed, if the game ever becomes unresponsive and you cannot close it:
    
+   If the initial connection is unsuccessful, it will take a minute or two for the program to let you click it again. Otherwise:
+   
    - If you have a **Mac/Apple computer**: Press the red "X" at the top left corner of the terminal in which you typed "java -jar PawnGame.jar". This will stop the program.
    
    - If you have a **Windows computer**: Hold "Control + Alt + Delete" at the same time. Your keyboard may vary. If this does not work, try "Control + Shift + Escape". Select "Task Manager". Select the unresponsive app. Tap "End Task". This will stop the program.
