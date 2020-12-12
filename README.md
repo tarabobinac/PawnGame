@@ -63,9 +63,9 @@ Press the file labeled "PawnGame.jar" and press "Download" in the upper righthan
       
   With the program now open, under the bottom left section titled "Router" press "Connect". After a few seconds, the button should say "Disconnect". Leave it like that.
    
-  Under the section that says **Port mapping presets** press "Create". For **Description type** in "Pawn Game". Do not type anything into **Remote host**. **Interal Client** can remain as is. Press **Add range**. The protocol should be TCP and for **External ports** type in 3000 on the left side and 3001 on the right side. If the button labeled "External ports are equal to internal ports" is not checked, check it. The same numbers should automatically pop up under **Internal ports**. Press "Add" and then press "Save". 
+  Under the section that says **Port mapping presets** press "Create". For **Description** type in "Pawn Game". Do not type anything into **Remote host**. **Interal Client** can remain as is. Press **Add range**. The protocol should be TCP and for **External ports** type in "3000" on the left side and "3001" on the right side. If the button labeled "External ports are equal to internal ports" is not checked, check it. The same numbers should automatically pop up under **Internal ports**. Press "Add" and then press "Save". 
    
-   "Pawn Game" should be listed under **Port mapping presets**. Press "Pawn Game" and then press "Use". Two **Port mappings** should show up under the top section. Click the one that has **External port** and **Internal port** labeled as 3001. Then press "Remove" and then press "Update". 
+   "Pawn Game" should be listed under **Port mapping presets**. Press "Pawn Game" and then press "Use". Two **Port mappings** should show up under the top section. Click the one that has **External port** and **Internal port** labeled as "3001". Then press "Remove" and then press "Update". 
    
    You can now close the program. 
    
