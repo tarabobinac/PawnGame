@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class Client implements Serializable {
@@ -13,7 +14,8 @@ public class Client implements Serializable {
     private ObjectOutputStream outputStream;
 
     Client(String IP) throws IOException {
-        socket = new Socket(IP, 3000);
+        socket = new Socket();
+        socket.connect(new InetSocketAddress(IP, 3000), 40000);
     }
 
     public Socket getSocket() {
